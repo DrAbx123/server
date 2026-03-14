@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Battle Platform – Rankings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    th, td {
+      padding: 0.5rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #333;
+      color: white;
+    }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    .note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>AI Battle Platform – Rankings</h1>
+  <p class="note">
+    Players must complete at least 30 matches, with at least 15 against distinct opponents, to qualify for ranking in each mode.  Provisional players are listed without a rank.
+  </p>
+  {% for mode, table in rankings.items() %}
+    <section>
+      <h2>Mode {{ mode }}
+        {% if mode == 0 %}(Full deck &amp; characters)
+        {% elif mode == 1 %}(Limited open deck)
+        {% elif mode == 2 %}(Single deck)
+        {% elif mode == 3 %}(Single deck – no cards)
+        {% endif %}
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rank, player_name, rating in table %}
+            <tr>
+              <td>{{ rank }}</td>
+              <td>{{ player_name }}</td>
+              <td>{{ '%.1f'|format(rating) }}</td>
+            </tr>
+          {% endfor %}
+          {% if table|length == 0 %}
+            <tr>
+              <td colspan="3">No ranked players yet.</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+      <!-- Provisional players for this mode -->
+      {% set provisional = [] %}
+      {% for p in rankings.values()|sum(start=[]) %}{% endfor %}
+      {% set all_players = [] %}
+      {% for p in range(0) %}{% endfor %}
+    </section>
+  {% endfor %}
+</body>
+</html>
